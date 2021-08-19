@@ -1,0 +1,36 @@
+server:
+  port: 6789
+  max-http-header-size: 80KB
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.10.200:3306/oneclick_release?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    username: webroot
+    password: root1234
+    hikari:
+      connection-timeout: 30000       # 等待连接池分配连接的最大时长（毫秒）
+      minimum-idle: 5                 # 最小连接数
+      maximum-pool-size: 20           # 最大连接数
+      auto-commit: true               # 是否自动提交
+      idle-timeout: 600000            # 连接超时的最大时长（毫秒）
+      pool-name: DateSourceHikariCP   # 连接池名称
+      max-lifetime: 1800000           # 连接的生命时长（毫秒）
+      connection-test-query: SELECT 1 # 连接测试sql
+  main:
+    allow-bean-definition-overriding: true
+
+  redis:
+    database: 0
+    host: 192.168.10.200
+    port: 6379
+    password:
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # 打印sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

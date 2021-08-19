@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wupao.oneclickrelease.mapper.UserMapper">
+
+    <select id="findUserByMobile" resultType="com.wupao.oneclickrelease.pojo.User">
+        SELECT id,
+               user_num,
+               username,
+               nickname,
+               email,
+               avatar,
+               phone_number,
+               `status`,
+               sex,
+               type,
+               birthday,
+               version,
+               salt,
+               password
+        FROM tb_user
+        WHERE phone_number = #{phoneNumber}
+          AND `deleted` = 0
+        LIMIT 1
+    </select>
+
+    <select id="findUserList" resultType="com.wupao.oneclickrelease.vo.UserVO"
+            parameterType="com.wupao.oneclickrelease.dto.user.UserSearchDTO">
+        SELECT id,
+        user_num,
+        username,
+        nickname,
+        email,
+        avatar,
+        phone_number,
+        `status`,
+        sex,
+        type,
+        birthday,
+        version
+        FROM tb_user
+        <where>
+            <if test="param.userNum != null and param.userNum != ''">
+                AND user_num = #{param.userNum}
+            </if>
+            <if test="param.username != null and param.username != ''">
+                AND username = #{param.userNum}
+            </if>
+            <if test="param.phoneNumber != null and param.phoneNumber != ''">
+                AND phone_number = #{param.userNum}
+            </if>
+            <if test="param.status != null">
+                AND status = #{param.userNum}
+            </if>
+            <if test="param.createStartTime != null and param.createStartTime != ''">
+                AND create_time &gt;= #{param.createStartTime}
+            </if>
+            <if test="param.createEndTime != null and param.createEndTime != ''">
+                AND create_time &lt;= #{param.createEndTime}
+            </if>
+        </where>
+    </select>
+
+</mapper>

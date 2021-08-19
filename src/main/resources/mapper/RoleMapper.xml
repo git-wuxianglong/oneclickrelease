@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wupao.oneclickrelease.mapper.RoleMapper">
+
+    <select id="findRoleList" resultType="com.wupao.oneclickrelease.vo.permission.RoleVO">
+        SELECT
+        id,
+        role_name,
+        remark,
+        create_time,
+        modified_time,
+        `status`,
+        perm_rule_type
+        FROM
+        tb_role
+        <where>
+            AND deleted = 0
+            <if test="roleName != null and roleName != ''">
+                AND role_name = #{roleName}
+            </if>
+        </where>
+    </select>
+
+    <select id="findRoleInfo" resultType="com.wupao.oneclickrelease.vo.permission.RoleVO">
+        SELECT id,
+               role_name,
+               remark,
+               create_time,
+               modified_time,
+               `status`,
+               perm_rule_type
+        FROM tb_role
+        WHERE deleted = 0
+          AND id = #{id}
+    </select>
+
+</mapper>
